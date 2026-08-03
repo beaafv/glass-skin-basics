@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Compare ingredients: our K-beauty picks vs. popular products — Glass Skin Basics</title>
+<meta name="description" content="Pick a K-beauty product we recommend and compare its full ingredient list against popular Western products in the same category — or run a free 1v1 comparison.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #FAF8F4; --bg-card: #FFFFFF; --ink: #1E1C18; --ink-soft: #5C5850; --ink-faint: #9A958A;
+    --sage: #4A5A4A; --sage-light: #E3E8E1; --border: #E9E5DC; --max-w: 1080px; --tool-w: 960px;
+    --mod: #8C6D1F;
+    --high: #9C4A3C;
+    --irr: #74507A;
+    --pop: #8A5A3C; --pop-light: #F0E2D6;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--ink); font-family: 'Inter', sans-serif; line-height: 1.6; -webkit-font-smoothing: antialiased; }
+  h1, h2, h3, .serif { font-family: 'Fraunces', serif; font-weight: 500; letter-spacing: -0.01em; }
+  a { color: var(--sage); text-decoration: none; border-bottom: 1px solid var(--sage-light); }
+  a:hover { border-color: var(--sage); }
+  .wrap { max-width: var(--max-w); margin: 0 auto; padding: 0 28px; }
+  .tool-wrap { max-width: var(--tool-w); margin: 0 auto; padding: 0 28px; }
+  header { padding: 28px 0; border-bottom: 1px solid var(--border); }
+  header .wrap { display: flex; align-items: center; justify-content: space-between; }
+  .logo { font-family: 'Fraunces', serif; font-size: 21px; font-weight: 600; letter-spacing: -0.01em; border: none; color: var(--ink); }
+  nav { display: flex; gap: 32px; }
+  nav a { font-size: 14px; color: var(--ink-soft); border: none; }
+  nav a:hover { color: var(--ink); }
+  article { padding: 24px 0 100px; }
+  .eyebrow { font-size: 13px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--sage); margin: 24px 0 18px; display: flex; align-items: center; gap: 10px; }
+  .eyebrow::before { content: ""; width: 24px; height: 1px; background: var(--sage); display: inline-block; }
+  h1.title { font-size: clamp(30px, 4.5vw, 42px); line-height: 1.1; margin-bottom: 18px; max-width: 26ch; }
+  .dek { font-size: 18px; color: var(--ink-soft); margin-bottom: 20px; max-width: 64ch; }
+  .disclaimer { background: var(--sage-light); border-radius: 4px; padding: 16px 20px; font-size: 14px; color: var(--ink-soft); margin-bottom: 36px; line-height: 1.6; }
+  .disclaimer strong { color: var(--ink); font-weight: 500; }
+  footer { border-top: 1px solid var(--border); padding: 32px 0; }
+  footer .wrap { display: flex; justify-content: space-between; align-items: center; font-size: 13px; color: var(--ink-faint); }
+  @media (max-width: 560px) { nav { display: none; } }
+
+  .switch-row { display: flex; gap: 24px; border-bottom: 1px solid var(--border); margin-bottom: 28px; }
+  .switch-btn { font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 500; color: var(--ink-faint); background: none; border: none; border-bottom: 2px solid transparent; padding: 0 0 12px; cursor: pointer; margin-bottom: -1px; }
+  .switch-btn.on { color: var(--ink); border-bottom-color: var(--sage); font-weight: 600; }
+
+  .cat-row { display: flex; gap: 22px; margin-bottom: 30px; flex-wrap: wrap; }
+  .cat-btn { font-family: 'Inter', sans-serif; font-size: 14px; color: var(--ink-faint); background: none; border: none; cursor: pointer; padding-bottom: 3px; border-bottom: 1px solid transparent; }
+  .cat-btn.on { color: var(--sage); font-weight: 600; border-bottom-color: var(--sage); }
+
+  .pick-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin-bottom: 32px; }
+  .pick-col h4 { font-size: 12px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink-faint); font-weight: 500; margin-bottom: 10px; }
+  .pick-col.korean h4 { color: var(--sage); }
+  .pick-col.popular h4 { color: var(--pop); }
+  .pick-list { display: flex; flex-direction: column; border-top: 1px solid var(--border); }
+  .pick-item { text-align: left; background: none; border: none; border-bottom: 1px solid var(--border); border-left: 3px solid transparent; padding: 10px 12px; font-family: 'Inter', sans-serif; font-size: 14.5px; color: var(--ink-soft); cursor: pointer; }
+  .pick-item:hover { color: var(--ink); }
+  .korean .pick-item.sel { border-left-color: var(--sage); background: var(--sage-light); color: var(--ink); font-weight: 600; }
+  .popular .pick-item.sel { border-left-color: var(--pop); background: var(--pop-light); color: var(--ink); font-weight: 600; }
+
+  .picker-row { display: grid; grid-template-columns: 1fr auto 1fr; gap: 16px; align-items: center; margin-bottom: 32px; }
+  .picker-vs { font-family: 'Fraunces', serif; font-size: 14px; color: var(--ink-faint); text-align: center; }
+  select {
+    width: 100%; font-family: 'Inter', sans-serif; font-size: 14px; padding: 10px 12px;
+    background: var(--bg-card); color: var(--ink); border: 1px solid var(--border); border-radius: 4px;
+  }
+  optgroup { font-family: 'Inter', sans-serif; font-style: normal; font-weight: 600; }
+
+  .verdict { background: var(--sage-light); border-radius: 4px; padding: 16px 20px; font-size: 15px; color: var(--ink); margin-bottom: 8px; }
+  .verdict strong { font-weight: 600; }
+  .rinse-note, .partial-note { font-size: 13px; color: var(--ink-faint); margin-bottom: 20px; }
+
+  .cards { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; margin-top: 24px; }
+  .pcard h3 { font-size: 17px; margin-bottom: 2px; }
+  .pcard.side-korean { border-top: 2px solid var(--sage); padding-top: 16px; }
+  .pcard.side-popular { border-top: 2px solid var(--pop); padding-top: 16px; }
+  .pcard .brand-line { font-size: 12.5px; color: var(--ink-faint); margin-bottom: 4px; }
+  .pcard .buy { font-size: 13px; font-weight: 600; }
+  .pcard .summary { font-size: 13px; color: var(--ink-soft); margin: 10px 0 14px; }
+  .pcard .summary b { color: var(--ink); font-weight: 600; }
+
+  table { width: 100%; border-collapse: collapse; }
+  th, td { text-align: left; padding: 8px 10px; font-size: 12.5px; border-bottom: 1px solid var(--border); }
+  th { font-size: 10.5px; letter-spacing: 0.05em; text-transform: uppercase; color: var(--ink-faint); font-weight: 500; }
+  td.rank { color: var(--ink-faint); width: 20px; }
+  td.rating { font-family: 'Fraunces', serif; font-weight: 600; white-space: nowrap; }
+  .r-safe { color: var(--sage); }
+  .r-mod { color: var(--mod); }
+  .r-high { color: var(--high); }
+  .irr-tag { color: var(--irr); font-size: 10.5px; font-style: italic; margin-left: 4px; }
+  .ing-note { display: block; font-size: 10.5px; color: var(--ink-faint); font-style: italic; }
+  .ilist-scroll { max-height: 340px; overflow-y: auto; }
+
+  .footnote { font-size: 12.5px; color: var(--ink-faint); margin-top: 20px; line-height: 1.6; }
+
+  @media (max-width: 700px) {
+    .cards, .picker-row, .pick-cols { grid-template-columns: 1fr; }
+    .picker-vs { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a class="logo" href="index.html">Glass Skin Basics</a>
+    <nav>
+      <a href="index.html#routines">Routines</a>
+      <a href="index.html#ingredients">Ingredients</a>
+      <a href="index.html#about">About</a>
+    </nav>
+  </div>
+</header>
+
+<article>
+  <div class="tool-wrap">
+    <div class="eyebrow">Tool</div>
+    <h1 class="title">Compare ingredients side by side</h1>
+    <p class="dek">Pick one of the K-beauty products we recommend on this site and see its full ingredient list matched against a popular Western product in the same category — or run your own 1v1 between any two.</p>
+
+    <div class="disclaimer"><strong>Everyone's skin reacts differently.</strong> A flagged ingredient here might never bother your skin, and a "clean" formula can still cause a reaction that's specific to you — allergies, sensitivities, and triggers vary person to person and aren't fully captured by any rating scale. If something breaks you out or irritates you, trust that over any rating on this page, and patch test anything new.</div>
+
+    <div class="switch-row">
+      <button class="switch-btn on" id="tabCategory">Compare by category</button>
+      <button class="switch-btn" id="tab1v1">1v1 tool</button>
+    </div>
+
+    <div id="categoryMode">
+      <div class="cat-row" id="catTabs"></div>
+      <div class="pick-cols">
+        <div class="pick-col korean">
+          <h4>Korean pick (from this site)</h4>
+          <div class="pick-list" id="listKorean"></div>
+        </div>
+        <div class="pick-col popular">
+          <h4>Popular Western pick</h4>
+          <div class="pick-list" id="listPopular"></div>
+        </div>
+      </div>
+      <div id="catResult"></div>
+    </div>
+
+    <div id="freeMode" style="display:none">
+      <div class="picker-row">
+        <select id="selA"></select>
+        <span class="picker-vs">vs</span>
+        <select id="selB"></select>
+      </div>
+      <div id="freeResult"></div>
+    </div>
+
+  </div>
+</article>
+
+<footer>
+  <div class="wrap">
+    <span>Glass Skin Basics</span>
+    <span>Some links may be affiliate links.</span>
+  </div>
+</footer>
+
+<script>
+const PRODUCTS = [
+  { id:"illiyoon", brand:"Illiyoon", name:"Ceramide Ato Concentrate Cream", category:"Moisturizer", origin:"korean", asin:"B0CLD1T6MB",
+    items:[{n:"Purified Water",r:0},{n:"Butylene Glycol",r:0},{n:"Glycerin",r:0},{n:"Cetyl Ethylhexanoate",r:3,note:"moderately comedogenic ester"},{n:"Pentaerythrityl Tetraisostearate",r:2},{n:"Stearic Acid",r:2},{n:"Cyclopentasiloxane",r:0},{n:"Palmitic Acid",r:2},{n:"Behenyl Alcohol",r:1},{n:"Panax Ginseng Root Extract",r:0},{n:"Magnolia Biondii Flower Extract",r:0},{n:"Perilla Ocymoides Seed Extract",r:0},{n:"Lactobacillus/Soybean Ferment Extract",r:0},{n:"Hydroxypropyl Bispalmitamide MEA (Ceramide)",r:0},{n:"C12-20 Alkyl Glucoside",r:0},{n:"C14-22 Alcohols",r:1},{n:"Glyceryl Caprylate",r:0},{n:"Dimethiconol",r:0},{n:"Mannitol",r:0},{n:"Cyclohexasiloxane",r:0},{n:"Silica",r:0},{n:"Arachidyl Glucoside",r:0},{n:"Arachidyl Alcohol",r:1},{n:"Acrylates/Ammonium Methacrylate Copolymer",r:0},{n:"Ethylhexylglycerin",r:0},{n:"Cholesterol",r:0},{n:"Polysorbate 20",r:0},{n:"Polyacrylate-13",r:0},{n:"Polyisobutene",r:1},{n:"Propanediol",r:0}] },
+  { id:"torriden", brand:"Torriden", name:"Dive-In Low Molecular Hyaluronic Acid Serum", category:"Moisturizer", origin:"korean", asin:"B0CMH3QM8V",
+    items:[{n:"Water",r:0},{n:"Butylene Glycol",r:0},{n:"Glycerin",r:0},{n:"Dipropylene Glycol",r:0},{n:"1,2-Hexanediol",r:0},{n:"Panthenol",r:0},{n:"Sodium Hyaluronate",r:0},{n:"Hydrolyzed Hyaluronic Acid",r:0},{n:"Allantoin",r:0},{n:"Trehalose",r:0},{n:"Betaine",r:0},{n:"Propanediol",r:0},{n:"Portulaca Oleracea Extract",r:0},{n:"Witch Hazel Leaf Extract",r:0,irr:true,note:"tannins, mild"},{n:"Madecassoside",r:0},{n:"Madecassic Acid",r:0},{n:"Ceramide NP",r:0},{n:"Beta-Glucan",r:0},{n:"Cholesterol",r:0},{n:"Pentylene Glycol",r:0},{n:"Xanthan Gum",r:0},{n:"Carbomer",r:0},{n:"Ethylhexylglycerin",r:0}] },
+  { id:"skin1004-cream", brand:"SKIN1004", name:"Madagascar Centella Poremizing Gel Cream", category:"Moisturizer", origin:"korean", asin:"B0BSP1Y2BH",
+    items:[{n:"Water",r:0},{n:"Glycerin",r:0},{n:"Centella Asiatica Extract",r:0},{n:"Niacinamide",r:0},{n:"Witch Hazel Extract",r:0,irr:true,note:"mild astringent"},{n:"Cypress Extract",r:0},{n:"Butylene Glycol",r:0},{n:"Sodium Hyaluronate",r:0},{n:"Panthenol",r:0},{n:"Allantoin",r:0},{n:"Dimethicone",r:1},{n:"Cetearyl Alcohol",r:2},{n:"Glyceryl Stearate",r:1},{n:"Xanthan Gum",r:0},{n:"Carbomer",r:0},{n:"Phenoxyethanol",r:0},{n:"Ethylhexylglycerin",r:0}] },
+  { id:"nivea", brand:"Nivea", name:"Creme", category:"Moisturizer", origin:"popular",
+    items:[{n:"Water",r:0},{n:"Mineral Oil",r:0},{n:"Petrolatum",r:1},{n:"Glycerin",r:0},{n:"Microcrystalline Wax",r:1},{n:"Lanolin Alcohol",r:4,note:"classic comedogenic offender"},{n:"Paraffin",r:1},{n:"Panthenol",r:0},{n:"Magnesium Sulfate",r:0},{n:"Decyl Oleate",r:3,note:"comedogenic ester"},{n:"Octyldodecanol",r:2},{n:"Aluminum Stearates",r:2},{n:"Fragrance",r:0,irr:true},{n:"Citric Acid",r:0},{n:"Magnesium Stearate",r:1},{n:"Methylchloroisothiazolinone",r:0,irr:true,note:"common contact allergen"},{n:"Methylisothiazolinone",r:0,irr:true,note:"common contact allergen"}] },
+  { id:"cetaphil-moist", brand:"Cetaphil", name:"Daily Facial Moisturizer", category:"Moisturizer", origin:"popular",
+    items:[{n:"Aqua",r:0},{n:"Octocrylene",r:0,irr:true,note:"UV filter, photoallergen"},{n:"Diisopropyl Adipate",r:1},{n:"Cyclopentasiloxane",r:0},{n:"Glycerin",r:0},{n:"Avobenzone",r:0,note:"UV filter"},{n:"PEG-100 Stearate",r:1},{n:"Polymethyl Methacrylate",r:0},{n:"Phenoxyethanol",r:0},{n:"Benzyl Alcohol",r:0,irr:true},{n:"Triethanolamine",r:0},{n:"Acrylates/C10-30 Alkyl Acrylate Crosspolymer",r:0},{n:"Tocopheryl Acetate",r:0},{n:"Carbomer",r:0},{n:"Disodium EDTA",r:0},{n:"Cyclotetrasiloxane",r:0}] },
+  { id:"olay", brand:"Olay", name:"Regenerist Micro-Sculpting Cream", category:"Moisturizer", origin:"popular",
+    items:[{n:"Water",r:0},{n:"Glycerin",r:0},{n:"Isohexadecane",r:0},{n:"Niacinamide",r:0},{n:"Isopropyl Isostearate",r:2},{n:"Aluminum Starch Octenylsuccinate",r:0},{n:"Nylon-12",r:0},{n:"Dimethicone",r:0},{n:"Panthenol",r:0},{n:"Tocopheryl Acetate",r:0},{n:"Sodium Hyaluronate",r:0},{n:"Palmitoyl Pentapeptide-4",r:0},{n:"Green Tea Leaf Extract",r:0},{n:"Aloe Vera Leaf Juice",r:0},{n:"Allantoin",r:0},{n:"Stearyl Alcohol",r:1},{n:"Polyethylene",r:0},{n:"Cetyl Alcohol",r:2},{n:"Sodium Acrylates Copolymer",r:0},{n:"Behenyl Alcohol",r:1},{n:"Benzyl Alcohol",r:0,irr:true},{n:"Dimethiconol",r:0},{n:"Peg-100 Stearate",r:1},{n:"Stearic Acid",r:2},{n:"Cetearyl Glucoside",r:0},{n:"Cetearyl Alcohol",r:2},{n:"Citric Acid",r:0},{n:"Sodium Hydroxide",r:0},{n:"Caprylic/Capric Triglyceride",r:0},{n:"Ethylparaben",r:0,irr:true},{n:"Methylparaben",r:0,irr:true},{n:"Propylparaben",r:0,irr:true},{n:"Fragrance",r:0,irr:true},{n:"Titanium Dioxide",r:0},{n:"Mica",r:0}] },
+  { id:"aveeno", brand:"Aveeno", name:"Daily Moisturizing Lotion SPF 15", category:"Moisturizer", origin:"popular",
+    items:[{n:"Octisalate",r:0,note:"UV filter"},{n:"Oxybenzone",r:0,irr:true,note:"UV filter, photoallergen"},{n:"Avobenzone",r:0,note:"UV filter"},{n:"Octocrylene",r:0,irr:true,note:"UV filter"},{n:"Oat Kernel Flour",r:0},{n:"Benzalkonium Chloride",r:0,irr:true},{n:"C12-15 Alkyl Benzoate",r:1},{n:"Cetyl Alcohol",r:2},{n:"Diethylhexyl 2,6-Naphthalate",r:0},{n:"Dimethicone",r:0},{n:"Disodium EDTA",r:0},{n:"Distearyldimonium Chloride",r:1},{n:"Glycerin",r:0},{n:"Methylparaben",r:0,irr:true},{n:"Steareth-21",r:1},{n:"Water",r:0}] },
+  { id:"neutrogena-hydroboost", brand:"Neutrogena", name:"Hydro Boost Water Gel", category:"Moisturizer", origin:"popular",
+    items:[{n:"Water",r:0},{n:"Dimethicone",r:0},{n:"Glycerin",r:0},{n:"Dimethicone/Vinyl Dimethicone Crosspolymer",r:0},{n:"Phenoxyethanol",r:0},{n:"Polyacrylamide",r:0},{n:"Cetearyl Olivate",r:1},{n:"Sorbitan Olivate",r:0},{n:"Dimethiconol",r:0},{n:"C13-14 Isoparaffin",r:0},{n:"Dimethicone Crosspolymer",r:0},{n:"Chlorphenesin",r:0,irr:true},{n:"Carbomer",r:0},{n:"Laureth-7",r:0},{n:"Sodium Hyaluronate",r:0},{n:"Ethylhexylglycerin",r:0},{n:"Fragrance",r:0,irr:true},{n:"C12-14 Pareth-12",r:0},{n:"Sodium Hydroxide",r:0},{n:"Blue 1",r:0}] },
+  { id:"aquaphor", brand:"Aquaphor", name:"Advanced Therapy Healing Ointment", category:"Moisturizer", origin:"popular",
+    items:[{n:"Petrolatum",r:1},{n:"Mineral Oil",r:0},{n:"Ceresin",r:1},{n:"Lanolin Alcohol",r:4,note:"classic comedogenic offender"},{n:"Panthenol",r:0},{n:"Glycerin",r:0},{n:"Bisabolol",r:0}] },
+
+  { id:"anua-cleanser", brand:"Anua", name:"Heartleaf Quercetinol Pore Deep Cleansing Foam", category:"Cleanser", origin:"korean", rinse:true, asin:"B0BVV8BNYJ",
+    items:[{n:"Houttuynia Cordata Extract",r:0},{n:"Quercetin",r:0},{n:"Glycerin",r:0},{n:"Sodium Cocoyl Glycinate",r:0},{n:"Water",r:0},{n:"Sodium Lauroyl Glutamate",r:0},{n:"Coco-Glucoside",r:0},{n:"Sodium Cocoamphoacetate",r:0},{n:"Sodium Chloride",r:0},{n:"1,2-Hexanediol",r:0},{n:"Salicylic Acid",r:0},{n:"Butylene Glycol",r:0},{n:"Lecithin",r:0},{n:"Glyceryl Stearate SE",r:1},{n:"Hydroxypropyl Starch Phosphate",r:0},{n:"Potassium Benzoate",r:0},{n:"Polyquaternium-67",r:0},{n:"Evening Primrose Flower Extract",r:0},{n:"Ulmus Davidiana Root Extract",r:0},{n:"Pinus Palustris Leaf Extract",r:0},{n:"Pueraria Lobata Root Extract",r:0},{n:"Capryloyl Salicylic Acid",r:0},{n:"Tocopherol",r:0},{n:"Sodium Hyaluronate",r:0},{n:"Hyaluronic Acid",r:0},{n:"Dextrin",r:0},{n:"Gardenia Florida Fruit Extract",r:0},{n:"Fragrance",r:0,irr:true},{n:"Ethylhexylglycerin",r:0},{n:"Disodium EDTA",r:0}] },
+  { id:"anua-oil", brand:"Anua", name:"Heartleaf Pore Control Cleansing Oil", category:"Cleanser", origin:"korean", rinse:true, asin:"B0BN2PX8V3",
+    items:[{n:"Ethylhexyl Palmitate",r:1},{n:"Sorbeth-30 Tetraoleate",r:1},{n:"Sorbitan Sesquioleate",r:1},{n:"Caprylic/Capric Triglyceride",r:0},{n:"Butyl Avocadate",r:1},{n:"Fragrance",r:0,irr:true},{n:"Sunflower Seed Oil",r:1},{n:"Macadamia Seed Oil",r:2},{n:"Olive Fruit Oil",r:2},{n:"Jojoba Seed Oil",r:2},{n:"Grape Seed Oil",r:1},{n:"Caprylyl Glycol",r:0},{n:"Ethylhexylglycerin",r:0},{n:"Turmeric Root Extract",r:0},{n:"Neem Flower/Leaf/Bark Extract",r:0},{n:"Tocopherol",r:0},{n:"Houttuynia Cordata Extract",r:0},{n:"Coral Extract",r:0},{n:"Moringa Seed Oil",r:1},{n:"Holy Basil Leaf Extract",r:0}] },
+  { id:"skin1004-oil", brand:"SKIN1004", name:"Madagascar Centella Light Cleansing Oil", category:"Cleanser", origin:"korean", rinse:true, asin:"B07T5BN3P2",
+    items:[{n:"Ethylhexyl Stearate",r:1},{n:"Cetyl Ethylhexanoate",r:3,note:"moderately comedogenic ester"},{n:"Sorbeth-30 Tetraoleate",r:1},{n:"Centella Asiatica Extract",r:0},{n:"Sunflower Seed Oil",r:1},{n:"Bergamot Fruit Oil",r:0,irr:true,note:"photosensitizing citrus oil"},{n:"Olive Fruit Oil",r:2},{n:"Jojoba Seed Oil",r:2},{n:"Ethylhexylglycerin",r:0},{n:"Geranium Flower Oil",r:0,irr:true,note:"fragrance allergen"},{n:"Rose Damascena Flower Oil",r:0,irr:true,note:"fragrance allergen"}] },
+  { id:"cosrx-cleanser", brand:"COSRX", name:"Low pH Good Morning Gel Cleanser", category:"Cleanser", origin:"korean", rinse:true, asin:"B016NRXO06",
+    items:[{n:"Water",r:0},{n:"Cocamidopropyl Betaine",r:0,irr:true},{n:"Sodium Lauroyl Methyl Isethionate",r:0},{n:"Sodium Chloride",r:0},{n:"Polysorbate 20",r:0},{n:"Styrax Japonicus Extract",r:0},{n:"Butylene Glycol",r:0},{n:"Saccharomyces Ferment",r:0},{n:"Cryptomeria Japonica Leaf Extract",r:0},{n:"Lotus Leaf Extract",r:0},{n:"Pine Leaf Extract",r:0},{n:"Ulmus Davidiana Root Extract",r:0},{n:"Evening Primrose Flower Extract",r:0},{n:"Pueraria Lobata Root Extract",r:0},{n:"Tea Tree Leaf Oil",r:0,irr:true,note:"essential oil"},{n:"Allantoin",r:0},{n:"Caprylyl Glycol",r:0},{n:"Ethylhexylglycerin",r:0},{n:"Betaine Salicylate",r:0},{n:"Citric Acid",r:0},{n:"Disodium EDTA",r:0}] },
+  { id:"dove", brand:"Dove", name:"Beauty Bar", category:"Cleanser", origin:"popular", rinse:true,
+    items:[{n:"Sodium Lauroyl Isethionate",r:0},{n:"Stearic Acid",r:2},{n:"Lauric Acid",r:3,note:"coconut-derived, comedogenic"},{n:"Sodium Tallowate / Sodium Palmitate",r:1},{n:"Water",r:0},{n:"Sodium Isethionate",r:0},{n:"Sodium Stearate",r:1},{n:"Cocamidopropyl Betaine",r:0,irr:true,note:"occasional sensitizer"},{n:"Sodium Cocoate / Sodium Palm Kernelate",r:2},{n:"Dipropylene Glycol",r:0},{n:"Sodium Chloride",r:0},{n:"Tetrasodium Etidronate",r:0},{n:"Tetrasodium EDTA",r:0},{n:"Maltol",r:0,irr:true,note:"fragrance-adjacent, can sensitize"},{n:"Titanium Dioxide",r:0}] },
+  { id:"cetaphil-cleanser", brand:"Cetaphil", name:"Gentle Skin Cleanser", category:"Cleanser", origin:"popular", rinse:true,
+    items:[{n:"Water",r:0},{n:"Glycerin",r:0},{n:"Cetearyl Alcohol",r:2},{n:"Panthenol",r:0},{n:"Niacinamide",r:0},{n:"Pantolactone",r:0},{n:"Xanthan Gum",r:0},{n:"Sodium Cocoyl Isethionate",r:0},{n:"Sodium Benzoate",r:0},{n:"Citric Acid",r:0}] },
+  { id:"neutrogena-acnewash", brand:"Neutrogena", name:"Oil-Free Acne Wash", category:"Cleanser", origin:"popular", rinse:true,
+    items:[{n:"Water",r:0},{n:"Sodium C14-16 Olefin Sulfonate",r:0,irr:true,note:"can strip and irritate"},{n:"Cocamidopropyl Betaine",r:0,irr:true},{n:"Sodium Chloride",r:0},{n:"PEG-80 Sorbitan Laurate",r:0},{n:"C12-15 Alkyl Lactate",r:1},{n:"Benzalkonium Chloride",r:0,irr:true},{n:"Disodium EDTA",r:0},{n:"Fragrance",r:0,irr:true},{n:"Cocamidopropyl PG-Dimonium Chloride Phosphate",r:0},{n:"Propylene Glycol",r:0},{n:"Aloe Barbadensis Leaf Extract",r:0},{n:"Chamomile Flower Extract",r:0},{n:"Sodium Hydroxide",r:0},{n:"Citric Acid",r:0},{n:"Yellow 5",r:0,irr:true,note:"synthetic dye, occasional sensitizer"},{n:"Red 40",r:0,irr:true,note:"synthetic dye, occasional sensitizer"}] },
+  { id:"cerave-foam", brand:"CeraVe", name:"Foaming Facial Cleanser", category:"Cleanser", origin:"popular", rinse:true,
+    items:[{n:"Purified Water",r:0},{n:"Glycerin",r:0},{n:"Behentrimonium Methosulfate",r:0},{n:"Cetearyl Alcohol",r:2},{n:"Ceramide NP",r:0},{n:"Ceramide AP",r:0},{n:"Ceramide EOP",r:0},{n:"Hyaluronic Acid",r:0},{n:"Cholesterol",r:0},{n:"PEG-40 Stearate",r:1},{n:"Glyceryl Stearate",r:1},{n:"Stearyl Alcohol",r:1},{n:"Polysorbate 20",r:0},{n:"Potassium Phosphate",r:0},{n:"Dipotassium Phosphate",r:0},{n:"Sodium Lauroyl Lactylate",r:0},{n:"Cetyl Alcohol",r:2},{n:"Disodium EDTA",r:0},{n:"Phytosphingosine",r:0},{n:"Methylparaben",r:0,irr:true},{n:"Propylparaben",r:0,irr:true},{n:"Carbomer",r:0},{n:"Xanthan Gum",r:0}] },
+  { id:"cleanclear", brand:"Clean & Clear", name:"Foaming Facial Cleanser", category:"Cleanser", origin:"popular", rinse:true,
+    items:[{n:"Water",r:0},{n:"Triethanolamine",r:0},{n:"Myristic Acid",r:3,note:"comedogenic fatty acid"},{n:"C9-15 Alkyl Phosphate",r:0},{n:"Lauric Acid",r:3,note:"comedogenic fatty acid"},{n:"Glycerin",r:0},{n:"Hydroxypropyl Methylcellulose",r:0},{n:"Cocamidopropyl Betaine",r:0,irr:true},{n:"Phenoxyethanol",r:0},{n:"Methylparaben",r:0,irr:true},{n:"BHT",r:0,irr:true},{n:"Propylparaben",r:0,irr:true},{n:"Ethylparaben",r:0,irr:true},{n:"Sodium Chloride",r:0},{n:"Tetrasodium EDTA",r:0},{n:"Red 4",r:0,irr:true,note:"synthetic dye"},{n:"Yellow 10",r:0,irr:true,note:"synthetic dye"},{n:"Parfum",r:0,irr:true}] },
+  { id:"simple", brand:"Simple", name:"Kind To Skin Refreshing Facial Wash", category:"Cleanser", origin:"popular", rinse:true,
+    items:[{n:"Aqua",r:0},{n:"Cocamidopropyl Betaine",r:0,irr:true},{n:"Propylene Glycol",r:0},{n:"Hydroxypropyl Methylcellulose",r:0},{n:"Panthenol",r:0},{n:"Disodium EDTA",r:0},{n:"Glycerin",r:0},{n:"Iodopropynyl Butylcarbamate",r:0,irr:true,note:"preservative, known sensitizer"},{n:"Phenoxyethanol",r:0},{n:"Sodium Hydroxide",r:0},{n:"Tocopheryl Acetate",r:0},{n:"Citric Acid",r:0}] },
+
+  { id:"roundlab", brand:"Round Lab", name:"Birch Juice Moisturizing Sunscreen", category:"Sunscreen", origin:"korean", asin:"B0GXF8YXXV",
+    items:[{n:"Water",r:0},{n:"Glycerin",r:0},{n:"Butylene Glycol",r:0},{n:"C12-15 Alkyl Benzoate",r:1},{n:"1,2-Hexanediol",r:0},{n:"Polymethyl Methacrylate",r:0},{n:"Diethylamino Hydroxybenzoyl Hexyl Benzoate",r:0,note:"UV filter"},{n:"Niacinamide",r:0},{n:"Behenyl Alcohol",r:1},{n:"Bis-Ethylhexyloxyphenol Methoxyphenyl Triazine",r:0,note:"UV filter"},{n:"Birch Juice",r:0},{n:"Glyceryl Glucoside",r:0},{n:"Sodium Hyaluronate",r:0},{n:"Hyaluronic Acid",r:0},{n:"Ascorbic Acid",r:0},{n:"Adenosine",r:0},{n:"Hydrogenated Lecithin",r:0},{n:"Potassium Cetyl Phosphate",r:1},{n:"Sodium Acrylate Copolymer",r:0},{n:"Glucose",r:0},{n:"Ascorbyl Tetraisopalmitate",r:1},{n:"Chamomile Flower Oil",r:0,irr:true,note:"essential oil, low conc."},{n:"Pine Leaf Oil",r:0,irr:true,note:"essential oil, low conc."},{n:"Ethylhexylglycerin",r:0},{n:"Disodium EDTA",r:0},{n:"Caprylyl/Capryl Glucoside",r:0},{n:"Sorbitan Oleate",r:0},{n:"Artemisia Annua Extract",r:0},{n:"Pentylene Glycol",r:0},{n:"Caprylic/Capric Triglyceride",r:0},{n:"Polyisobutene",r:1},{n:"Tocopherol",r:0},{n:"Carbomer",r:0}] },
+  { id:"coppertone", brand:"Coppertone", name:"Sport Sunscreen Lotion SPF 50", category:"Sunscreen", origin:"popular",
+    items:[{n:"Avobenzone",r:0,note:"UV filter"},{n:"Homosalate",r:0,note:"UV filter"},{n:"Octisalate",r:0,note:"UV filter"},{n:"Octocrylene",r:0,irr:true,note:"UV filter, known photoallergen"},{n:"Water",r:0},{n:"Aluminum Starch Octenylsuccinate",r:0},{n:"Styrene/Acrylates Copolymer",r:0},{n:"Glycerin",r:0},{n:"Polyester-27",r:0},{n:"Silica",r:0},{n:"Phenoxyethanol",r:0},{n:"Isododecane",r:0},{n:"Arachidyl Alcohol",r:1},{n:"Beeswax",r:2},{n:"Ethylhexylglycerin",r:0},{n:"Neopentyl Glycol Diheptanoate",r:2,note:"comedogenic-leaning ester"},{n:"Acrylates/C10-30 Alkyl Acrylate Crosspolymer",r:0},{n:"Behenyl Alcohol",r:1},{n:"Tocopherol",r:0},{n:"Arachidyl Glucoside",r:0},{n:"Glyceryl Stearate",r:1},{n:"PEG-100 Stearate",r:1},{n:"Potassium Hydroxide",r:0},{n:"Disodium EDTA",r:0},{n:"Sodium Ascorbyl Phosphate",r:0},{n:"Fragrance",r:0,irr:true}] },
+  { id:"neutrogena-ultrasheer", brand:"Neutrogena", name:"Ultra Sheer Dry-Touch SPF 55", category:"Sunscreen", origin:"popular",
+    items:[{n:"Avobenzone",r:0,note:"UV filter"},{n:"Homosalate",r:0,note:"UV filter"},{n:"Octisalate",r:0,note:"UV filter"},{n:"Octocrylene",r:0,irr:true,note:"UV filter"},{n:"Oxybenzone",r:0,irr:true,note:"UV filter, photoallergen"},{n:"Water",r:0},{n:"Butyloctyl Salicylate",r:1},{n:"Styrene/Acrylates Copolymer",r:0},{n:"Silica",r:0},{n:"Diethylhexyl 2,6-Naphthalate",r:0},{n:"VP/Hexadecene Copolymer",r:0},{n:"Dimethicone",r:0},{n:"Caprylyl Methicone",r:0},{n:"Phenoxyethanol",r:0},{n:"Ethylhexylglycerin",r:0},{n:"Glyceryl Stearate",r:1},{n:"PEG-100 Stearate",r:1},{n:"Trimethylsiloxysilicate",r:0},{n:"Sodium Polyacrylate",r:0},{n:"Methylparaben",r:0,irr:true},{n:"Behenyl Alcohol",r:1},{n:"Xanthan Gum",r:0},{n:"Propylparaben",r:0,irr:true},{n:"Ethylparaben",r:0,irr:true},{n:"Fragrance",r:0,irr:true},{n:"Disodium EDTA",r:0},{n:"BHT",r:0,irr:true},{n:"Iodopropynyl Butylcarbamate",r:0,irr:true}] },
+  { id:"laroche", brand:"La Roche-Posay", name:"Anthelios Melt-in Milk SPF 60", category:"Sunscreen", origin:"popular",
+    items:[{n:"Homosalate",r:0,note:"UV filter"},{n:"Ethylhexyl Salicylate",r:0,note:"UV filter"},{n:"Octocrylene",r:0,irr:true,note:"UV filter"},{n:"Dimethicone",r:0},{n:"Styrene/Acrylates Copolymer",r:0},{n:"Polymethylsilsesquioxane",r:0},{n:"Butyloctyl Salicylate",r:1},{n:"Glycerin",r:0},{n:"Alcohol Denat",r:0,irr:true},{n:"Poly C10-30 Alkyl Acrylate",r:0},{n:"Caprylyl Methicone",r:0},{n:"Trisiloxane",r:0},{n:"Acrylates/Dimethicone Copolymer",r:0},{n:"Diethylhexyl Syringylidenemalonate",r:0},{n:"Glyceryl Stearate",r:1},{n:"PEG-100 Stearate",r:1},{n:"Phenoxyethanol",r:0},{n:"Potassium Cetyl Phosphate",r:1},{n:"Propylene Glycol",r:0},{n:"Caprylyl Glycol",r:0},{n:"PEG-8 Laurate",r:0},{n:"Acrylates/C10-30 Alkyl Acrylate Crosspolymer",r:0},{n:"Triethanolamine",r:0},{n:"Tocopherol",r:0},{n:"Inulin Lauryl Carbamate",r:0},{n:"Disodium EDTA",r:0},{n:"P-Anisic Acid",r:0},{n:"Caprylic/Capric Triglyceride",r:0},{n:"Xanthan Gum",r:0},{n:"Cassia Alata Leaf Extract",r:0},{n:"Maltodextrin",r:0},{n:"Sodium Dodecylbenzenesulfonate",r:0,irr:true}] },
+  { id:"bananaboat", brand:"Banana Boat", name:"Sport SPF 50+", category:"Sunscreen", origin:"popular", partial:true,
+    items:[{n:"Homosalate",r:0,note:"UV filter"},{n:"Octocrylene",r:0,irr:true,note:"UV filter"},{n:"Avobenzone",r:0,note:"UV filter"},{n:"Phenoxyethanol",r:0},{n:"Hydroxybenzoates (Parabens)",r:0,irr:true}] },
+  { id:"eltamd", brand:"EltaMD", name:"UV Clear SPF 46", category:"Sunscreen", origin:"popular",
+    items:[{n:"Zinc Oxide",r:0,note:"mineral UV filter"},{n:"Octinoxate",r:0,irr:true,note:"UV filter"},{n:"Purified Water",r:0},{n:"Cyclopentasiloxane",r:0},{n:"Niacinamide",r:0},{n:"Octyldodecyl Neopentanoate",r:2},{n:"Hydroxyethyl Acrylate Copolymer",r:0},{n:"Polyisobutene",r:1},{n:"PEG-7 Trimethylolpropane Coconut Ether",r:0},{n:"Sodium Hyaluronate",r:0},{n:"Tocopheryl Acetate",r:0},{n:"Lactic Acid",r:0},{n:"Oleth-3 Phosphate",r:0},{n:"Phenoxyethanol",r:0},{n:"Butylene Glycol",r:0},{n:"Iodopropynyl Butylcarbamate",r:0,irr:true},{n:"Triethoxycaprylylsilane",r:0}] },
+  { id:"supergoop", brand:"Supergoop", name:"Unseen Sunscreen SPF 40", category:"Sunscreen", origin:"popular",
+    items:[{n:"Avobenzone",r:0,note:"UV filter"},{n:"Homosalate",r:0,note:"UV filter"},{n:"Octisalate",r:0,note:"UV filter"},{n:"Octocrylene",r:0,irr:true,note:"UV filter"},{n:"Isododecane",r:0},{n:"Dimethicone Crosspolymer",r:0},{n:"Dimethicone/Bis-Isobutyl PPG-20 Crosspolymer",r:0},{n:"Polymethylsilsesquioxane",r:0},{n:"Isohexadecane",r:0},{n:"Dicaprylyl Carbonate",r:0},{n:"Meadowfoam Estolide",r:1},{n:"Caprylic/Capric Triglyceride",r:0},{n:"Polyester-7",r:0},{n:"Neopentyl Glycol Diheptanoate",r:2,note:"comedogenic-leaning ester"},{n:"Lithothamnion Calcareum Extract",r:0},{n:"Caprylyl Glycol",r:0},{n:"Shea Butter",r:2},{n:"Jojoba Esters",r:1},{n:"Mannitol",r:0},{n:"Boswellia Serrata Resin Extract",r:0},{n:"Lecithin",r:0},{n:"Microcrystalline Cellulose",r:0},{n:"Diatomaceous Earth",r:0},{n:"Zinc Sulfate",r:0},{n:"Silica",r:0},{n:"Tocopherol",r:0}] },
+
+  { id:"anua-serum", brand:"Anua", name:"Niacinamide 10 + TXA 4 Serum", category:"Serum", origin:"korean", asin:"B0CLLV2T1P",
+    items:[{n:"Water",r:0},{n:"Glycerin",r:0},{n:"Niacinamide",r:0},{n:"Tranexamic Acid",r:0},{n:"Butylene Glycol",r:0},{n:"Diethoxyethyl Succinate",r:0},{n:"1,2-Hexanediol",r:0},{n:"Arbutin",r:0},{n:"Sodium Hyaluronate",r:0},{n:"Alpha-Arbutin",r:0},{n:"Coccinia Indica Fruit Extract",r:0},{n:"Eclipta Prostrata Extract",r:0},{n:"Macadamia Seed Oil",r:2},{n:"Olive Fruit Oil",r:2},{n:"Jojoba Seed Oil",r:2},{n:"Grape Seed Oil",r:1},{n:"Cocoa Extract",r:1},{n:"Hydrolyzed Hyaluronic Acid",r:0},{n:"Peach Flower Extract",r:0},{n:"Camellia Sinensis Seed Oil",r:1},{n:"Yeast Ferment Extract",r:0},{n:"Centella Asiatica Extract",r:0},{n:"Panthenol",r:0},{n:"Ceramide NP",r:0},{n:"Asiaticoside",r:0},{n:"Madecassic Acid",r:0},{n:"Asiatic Acid",r:0},{n:"Xanthan Gum",r:0}] },
+  { id:"boj-serum", brand:"Beauty of Joseon", name:"Glow Serum: Propolis + Niacinamide", category:"Serum", origin:"korean", asin:"B0DZGKNPRB",
+    items:[{n:"Propolis Extract",r:0},{n:"Dipropylene Glycol",r:0},{n:"Glycerin",r:0},{n:"Butylene Glycol",r:0},{n:"Water",r:0},{n:"Niacinamide",r:0},{n:"1,2-Hexanediol",r:0},{n:"Neem Flower Extract",r:0},{n:"Neem Leaf Extract",r:0},{n:"Sodium Hyaluronate",r:0},{n:"Turmeric Root Extract",r:0},{n:"Holy Basil Leaf Extract",r:0},{n:"Cocoa Seed Extract",r:1},{n:"Tea Tree Extract",r:0},{n:"Centella Asiatica Extract",r:0},{n:"Coral Extract",r:0},{n:"Lotus Corniculatus Seed Extract",r:0},{n:"Tamanu Seed Oil",r:2},{n:"Betaine Salicylate",r:0},{n:"Tocopherol",r:0},{n:"Xanthan Gum",r:0},{n:"Carbomer",r:0}] },
+  { id:"anua-azelaic", brand:"Anua", name:"Azelaic Acid 10 Hyaluron Redness Soothing Serum", category:"Serum", origin:"korean", asin:"B0DG1DQ2S7",
+    items:[{n:"Water",r:0},{n:"Azelaic Acid",r:0},{n:"Propylene Glycol",r:0},{n:"Sodium Hydroxide",r:0},{n:"Dipropylene Glycol",r:0},{n:"1,2-Hexanediol",r:0},{n:"Panthenol",r:0},{n:"Hydroxyethylcellulose",r:0},{n:"Betaine Salicylate",r:0},{n:"Glycerin",r:0},{n:"Biosaccharide Gum-1",r:0},{n:"Ethylhexylglycerin",r:0},{n:"Allantoin",r:0},{n:"Dipotassium Glycyrrhizate",r:0},{n:"Neem Leaf Extract",r:0},{n:"Green Tea Leaf Water",r:0},{n:"Sodium Hyaluronate",r:0},{n:"Neem Flower Extract",r:0},{n:"Niacinamide",r:0},{n:"Aloe Barbadensis Leaf Juice",r:0},{n:"Beta-Glucan",r:0},{n:"Centella Asiatica Extract",r:0},{n:"Madecassoside",r:0},{n:"Asiaticoside",r:0},{n:"Asiatic Acid",r:0},{n:"Madecassic Acid",r:0},{n:"Squalane",r:0},{n:"Zinc PCA",r:0},{n:"Butylene Glycol",r:0},{n:"Pentylene Glycol",r:0},{n:"Caprylyl/Capryl Glucoside",r:0},{n:"Hydrogenated Lecithin",r:0},{n:"Ceramide NP",r:0}] },
+  { id:"purito-serum", brand:"Purito", name:"Centella Unscented Serum", category:"Serum", origin:"korean", asin:"B0CST174J1",
+    items:[{n:"Centella Asiatica Extract",r:0},{n:"Water",r:0},{n:"Glycerin",r:0},{n:"Dipropylene Glycol",r:0},{n:"Niacinamide",r:0},{n:"Butylene Glycol",r:0},{n:"1,2-Hexanediol",r:0},{n:"Glycereth-26",r:0},{n:"Ceramide NP",r:0},{n:"Sodium Hyaluronate",r:0},{n:"Asiaticoside",r:0},{n:"Asiatic Acid",r:0},{n:"Madecassic Acid",r:0},{n:"Palmitoyl Hexapeptide-12",r:0},{n:"Palmitoyl Tripeptide-1",r:0},{n:"Palmitoyl Tetrapeptide-7",r:0},{n:"Palmitoyl Dipeptide-10",r:0},{n:"Carbomer",r:0},{n:"Arginine",r:0},{n:"Sclerotium Gum",r:0},{n:"Hydrolyzed Jojoba Esters",r:0},{n:"Caprylyl Glycol",r:0},{n:"Panthenol",r:0},{n:"Hydrogenated Lecithin",r:0},{n:"Camellia Sinensis Leaf Extract",r:0},{n:"Disodium EDTA",r:0},{n:"Adenosine",r:0}] },
+  { id:"ordinary", brand:"The Ordinary", name:"Niacinamide 10% + Zinc 1%", category:"Serum", origin:"popular",
+    items:[{n:"Aqua",r:0},{n:"Niacinamide",r:0},{n:"Pentylene Glycol",r:0},{n:"Zinc PCA",r:0},{n:"Tamarindus Indica Seed Gum",r:0},{n:"Carrageenan",r:0},{n:"Acacia Senegal Gum",r:0},{n:"Xanthan Gum",r:0},{n:"Cocoyl Proline",r:0},{n:"Ethoxydiglycol",r:0},{n:"Phenoxyethanol",r:0},{n:"Chlorphenesin",r:0,irr:true,note:"mild preservative sensitizer"}] },
+  { id:"loreal-vitc", brand:"L'Oreal", name:"Revitalift 10% Pure Vitamin C Serum", category:"Serum", origin:"popular",
+    items:[{n:"Propylene Glycol",r:0},{n:"Dimethicone",r:0},{n:"Ascorbic Acid",r:0,note:"vitamin C active, can sting sensitive skin"},{n:"Glycerin",r:0},{n:"Cetyl PEG/PPG-10/1 Dimethicone",r:0},{n:"Dimethicone Crosspolymer",r:0},{n:"Lauroyl Lysine",r:0},{n:"Acrylates Copolymer",r:0},{n:"Adenosine",r:0},{n:"Hydrolyzed Hyaluronic Acid",r:0},{n:"Antioxidant Blend",r:0}] },
+  { id:"olay-vitc", brand:"Olay", name:"Vitamin C + Peptide 24 Brightening Serum", category:"Serum", origin:"popular",
+    items:[{n:"Water",r:0},{n:"Glycerin",r:0},{n:"Dimethicone",r:0},{n:"Niacinamide",r:0},{n:"Lactic Acid",r:0,note:"AHA active"},{n:"Polyacrylate Crosspolymer-6",r:0},{n:"3-O-Ethyl Ascorbic Acid",r:0},{n:"Palmitoyl Pentapeptide-4",r:0},{n:"Panthenol",r:0},{n:"Trehalose",r:0},{n:"PEG-11 Methyl Ether Dimethicone",r:0},{n:"Sodium Lactate",r:0},{n:"Sodium Benzoate",r:0},{n:"Fragrance",r:0,irr:true}] }
+];
+
+const CATEGORIES = ["Moisturizer","Cleanser","Sunscreen","Serum"];
+let currentCat = "Moisturizer";
+let selKorean = { Moisturizer:"illiyoon", Cleanser:"anua-cleanser", Sunscreen:"roundlab", Serum:"anua-serum" };
+let selPopular = { Moisturizer:"nivea", Cleanser:"dove", Sunscreen:"coppertone", Serum:"ordinary" };
+
+function byId(id){ return PRODUCTS.find(p => p.id === id); }
+function inCat(cat, origin){ return PRODUCTS.filter(p => p.category === cat && p.origin === origin); }
+function ratingClass(r){ if(r>=3) return "r-high"; if(r===2) return "r-mod"; return "r-safe"; }
+function stats(items){
+  const high = items.filter(i => i.r >= 3).length;
+  const mod = items.filter(i => i.r === 2).length;
+  const irr = items.filter(i => i.irr).length;
+  return { total: items.length, high, mod, irr, flagged: high + mod };
+}
+
+function renderTable(items){
+  const rows = items.map((it,i) => `
+    <tr>
+      <td class="rank">${i+1}</td>
+      <td>${it.n}${it.note ? `<span class="ing-note">${it.note}</span>` : ""}</td>
+      <td class="rating"><span class="${ratingClass(it.r)}">${it.r}</span>${it.irr ? `<span class="irr-tag">irritant</span>` : ""}</td>
+    </tr>`).join("");
+  return `<div class="ilist-scroll"><table><tr><th>Ingredient</th><th></th><th>Rating</th></tr>${rows}</table></div>`;
+}
+
+function renderCard(p, side){
+  const s = stats(p.items);
+  const buyLink = p.asin ? `<a class="buy" href="https://www.amazon.com/dp/${p.asin}?tag=glassskinbasi-20" target="_blank" rel="nofollow noopener">View on Amazon →</a>` : "";
+  return `
+    <div class="pcard side-${side}">
+      <h3>${p.brand} ${p.name}</h3>
+      <div class="brand-line">${p.category}${p.rinse ? " · rinse-off" : ""} ${buyLink ? "· " + buyLink : ""}</div>
+      <div class="summary"><b>${s.total}</b> ingredients · <b>${s.high}</b> comedogenic · <b>${s.mod}</b> moderate · <b>${s.irr}</b> irritant</div>
+      ${renderTable(p.items)}
+    </div>
+  `;
+}
+
+function verdictText(pA, pB){
+  const sA = stats(pA.items), sB = stats(pB.items);
+  const flagsA = sA.flagged + sA.irr, flagsB = sB.flagged + sB.irr;
+  const nameA = `${pA.brand} ${pA.name}`, nameB = `${pB.brand} ${pB.name}`;
+  if (flagsA === flagsB) return `Both formulas flag about the same: <strong>${flagsA} flagged ingredients</strong> in ${nameA} vs. <strong>${flagsB}</strong> in ${nameB}. Ingredients alone don't settle this one.`;
+  const lower = flagsA < flagsB ? nameA : nameB;
+  const higher = flagsA < flagsB ? nameB : nameA;
+  const lowerN = Math.min(flagsA, flagsB), higherN = Math.max(flagsA, flagsB);
+  return `${lower} comes out cleaner here: <strong>${lowerN} flagged ingredients</strong> against ${higher}'s <strong>${higherN}</strong>.`;
+}
+
+function renderResult(pA, pB){
+  const rinseNote = (pA.rinse || pB.rinse) ? `<p class="rinse-note">Note: rinse-off cleansers spend far less time on skin, so comedogenic ratings matter less here than they would in a leave-on product.</p>` : "";
+  const partialNote = (pA.partial || pB.partial) ? `<p class="partial-note">Note: one label here only discloses UV filters and preservatives publicly — the full formula may include more inactive ingredients than shown.</p>` : "";
+  return `
+    <div class="verdict">${verdictText(pA, pB)}</div>
+    ${rinseNote}${partialNote}
+    <div class="cards">${renderCard(pA,"korean")}${renderCard(pB,"popular")}</div>
+    <p class="footnote">Ingredient lists sourced from published product labels. Comedogenic ratings run 0-5 based on older lab testing, not human skin directly — treat as a starting point for research, not a verdict. Individual reactions vary regardless of rating. See our <a href="comedogenic-ingredients.html">full comedogenic ingredients guide</a> for more.</p>
+  `;
+}
+
+function renderCatTabs(){
+  const el = document.getElementById("catTabs");
+  el.innerHTML = CATEGORIES.map(c => `<button class="cat-btn ${c===currentCat?"on":""}" data-cat="${c}">${c}</button>`).join("");
+  el.querySelectorAll(".cat-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
+      currentCat = btn.dataset.cat;
+      el.querySelectorAll(".cat-btn").forEach(b => b.classList.remove("on"));
+      btn.classList.add("on");
+      renderPickLists();
+      renderCatResult();
+    });
+  });
+}
+
+function renderPickLists(){
+  const koreanProducts = inCat(currentCat, "korean");
+  const popularProducts = inCat(currentCat, "popular");
+  const listKorean = document.getElementById("listKorean");
+  const listPopular = document.getElementById("listPopular");
+  listKorean.innerHTML = koreanProducts.map(p => `<button class="pick-item ${selKorean[currentCat]===p.id?"sel":""}" data-id="${p.id}">${p.brand} ${p.name}</button>`).join("");
+  listPopular.innerHTML = popularProducts.map(p => `<button class="pick-item ${selPopular[currentCat]===p.id?"sel":""}" data-id="${p.id}">${p.brand} ${p.name}</button>`).join("");
+  listKorean.querySelectorAll(".pick-item").forEach(btn => btn.addEventListener("click", () => {
+    selKorean[currentCat] = btn.dataset.id;
+    renderPickLists();
+    renderCatResult();
+  }));
+  listPopular.querySelectorAll(".pick-item").forEach(btn => btn.addEventListener("click", () => {
+    selPopular[currentCat] = btn.dataset.id;
+    renderPickLists();
+    renderCatResult();
+  }));
+}
+
+function renderCatResult(){
+  document.getElementById("catResult").innerHTML = renderResult(byId(selKorean[currentCat]), byId(selPopular[currentCat]));
+}
+
+function populateSelects(){
+  const koreanOpts = PRODUCTS.filter(p => p.origin === "korean").map(p => `<option value="${p.id}">${p.brand} ${p.name} (${p.category})</option>`).join("");
+  const popularOpts = PRODUCTS.filter(p => p.origin === "popular").map(p => `<option value="${p.id}">${p.brand} ${p.name} (${p.category})</option>`).join("");
+  const allOpts = `<optgroup label="Korean picks">${koreanOpts}</optgroup><optgroup label="Popular Western products">${popularOpts}</optgroup>`;
+  document.getElementById("selA").innerHTML = allOpts;
+  document.getElementById("selB").innerHTML = allOpts;
+  document.getElementById("selA").value = "anua-cleanser";
+  document.getElementById("selB").value = "cleanclear";
+}
+function showFree(){
+  const pA = byId(document.getElementById("selA").value);
+  const pB = byId(document.getElementById("selB").value);
+  document.getElementById("freeResult").innerHTML = renderResult(pA, pB);
+}
+
+document.getElementById("tabCategory").addEventListener("click", () => {
+  document.getElementById("tabCategory").classList.add("on");
+  document.getElementById("tab1v1").classList.remove("on");
+  document.getElementById("categoryMode").style.display = "block";
+  document.getElementById("freeMode").style.display = "none";
+});
+document.getElementById("tab1v1").addEventListener("click", () => {
+  document.getElementById("tab1v1").classList.add("on");
+  document.getElementById("tabCategory").classList.remove("on");
+  document.getElementById("freeMode").style.display = "block";
+  document.getElementById("categoryMode").style.display = "none";
+});
+document.getElementById("selA").addEventListener("change", showFree);
+document.getElementById("selB").addEventListener("change", showFree);
+
+renderCatTabs();
+renderPickLists();
+renderCatResult();
+populateSelects();
+showFree();
+</script>
+
+</body>
+</html>
